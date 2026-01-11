@@ -1,52 +1,38 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.css';
-import NxWelcome from './nx-welcome';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from './store/store';
+import { toggleModal } from './store/taskSlice';
+import { TaskCard } from './components/TaskCard';
+import { TaskForm } from './components/TaskForm';
 
-import { Route, Routes, Link } from 'react-router-dom';
 
-export function App() {
+
+export default function App() {
+  const { tasks, isModalOpen } = useSelector((state: RootState) => state.taskManager);
+  const dispatch = useDispatch();
+
   return (
-    <div>
-      <NxWelcome title="@task-manager/web" />
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+          <div>
+            <h1 className="text-4xl font-black tracking-tight">Task System</h1>
+            <p className="text-slate-500">You have {tasks.length} active tasks.</p>
+          </div>
+          <button
+            onClick={() => dispatch(toggleModal())}
+            className="w-full md:w-auto px-8 py-4 bg-indigo-600 text-white font-bold rounded-2xl hover:scale-105 transition-transform shadow-xl shadow-indigo-100"
+          >
+            + Create New Task
+          </button>
+        </header>
 
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
+        {/* Responsive Grid: 1 col on mobile, 2 on tablet, 3 on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tasks.map(task => <TaskCard key={task.id} task={task} />)}
+        </div>
       </div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
-      </Routes>
-      {/* END: routes */}
+
+      {isModalOpen && <TaskForm />}
     </div>
   );
 }
-
-export default App;

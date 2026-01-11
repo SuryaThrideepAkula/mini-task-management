@@ -1,101 +1,95 @@
-# TaskManager
+# Mini Task Management System
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+[cite_start]A responsive, high-performance task management interface built with **React**, **Redux Toolkit**, and **Tailwind CSS** within an **NX Monorepo**[cite: 4, 21].
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## 🎯 Objective
+The primary goal of this project is to demonstrate frontend engineering best practices, including:
+* [cite_start]**Clean Code & Structure**: Organized folder hierarchy and separation of concerns[cite: 5, 30].
+* [cite_start]**State Management**: Scalable global state using Redux Toolkit[cite: 18].
+* [cite_start]**Responsive UI**: A mobile-first design that adapts to all screen sizes[cite: 12, 17].
+* [cite_start]**TypeScript Mastery**: Strong typing for data integrity and developer experience[cite: 15].
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Run tasks
+## 🛠️ Technical Stack
+* [cite_start]**Framework**: React 18+ with TypeScript[cite: 15].
+* [cite_start]**Monorepo**: NX Build System[cite: 21].
+* [cite_start]**Styling**: Tailwind CSS[cite: 16].
+* [cite_start]**State Management**: Redux Toolkit (Data & UI state)[cite: 18].
+* **Icons**: Lucide-React.
 
-To run the dev server for your app, use:
+---
 
-```sh
-npx nx serve web
-```
+## 🏗️ Architecture Overview
+[cite_start]The application follows a modular architecture designed for scalability within a monorepo[cite: 30]:
 
-To create a production bundle:
+* **State Strategy**: For this implementation, **Redux Toolkit** handles the "Mock API" data layer and UI interactions (like modal visibility).
+* **Component Design**: 
+    - **App**: Orchestrates the layout and connects to the Redux store.
+    - **TaskCard**: A pure UI component that handles individual task display and status updates.
+    - **TaskForm**: Manages input state and performs validation before dispatching actions.
+* [cite_start]**Layout**: A 12-column grid system using Tailwind CSS to ensure seamless transitions between mobile, tablet, and desktop views.
 
-```sh
-npx nx build web
-```
 
-To see all available targets to run for a project, run:
 
-```sh
-npx nx show project web
-```
+---
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## 🚀 Setup and Installation
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Prerequisites
+* Node.js (v18 or higher)
+* npm or yarn
 
-## Add new projects
+### Steps to Run
+1. **Clone the project**:
+   ```bash
+   git clone <your-repository-url>
+   cd task-manager
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+Install dependencies:
 
-Use the plugin's generator to create new projects.
+Bash
 
-To generate a new application, use:
+npm install
+Run the application:
 
-```sh
-npx nx g @nx/react:app demo
-```
+Bash
 
-To generate a new library, use:
+npx nx serve @task-manager/web
+Access the app at http://localhost:4200.
 
-```sh
-npx nx g @nx/react:lib mylib
-```
+✅ Functional Features
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+View Tasks: Displayed in a responsive grid with status-based color coding.
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-## Set up CI!
+Create Task: Includes validation logic (minimum title length).
 
-### Step 1
 
-To connect to Nx Cloud, run the following command:
+Update Status: Instant UI updates via Redux when switching between Todo, In Progress, and Done.
 
-```sh
-npx nx connect
-```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+Responsiveness: Optimized for all device categories.
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+⚖️ Trade-offs & Decisions 
 
-### Step 2
 
-Use the following command to configure a CI workflow for your workspace:
+State Management: While the brief suggested GraphQL, I prioritized a robust Redux Toolkit implementation to demonstrate complex client-side state handling and mock-API logic within the 4-6 hour timeframe.
 
-```sh
-npx nx g ci-workflow
-```
+Data Persistence: Tasks are stored in memory via Redux. For a production environment, I would integrate Apollo GraphQL Client for server-side persistence.
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-## Install Nx Console
+Bundling: Used Webpack (default NX setup) to ensure compatibility and stability as requested.
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Error Handling: Implemented basic form validation and empty-state displays to ensure a professional user experience.
 
-## Useful links
+📁 Folder Structure
 
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+apps/web/src/
+├── app/
+│   ├── components/  # Reusable UI components
+│   ├── store/       # Redux Toolkit slices and configuration
+│   ├── types/       # TypeScript interfaces and enums
+│   └── app.tsx      # Main layout and entry point
+└── main.tsx         # Root provider setup
